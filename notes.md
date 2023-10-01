@@ -5,6 +5,37 @@ Battleship Project --> Project Planning #3 --> Action Reaction Notes
 **ALL ACTIONS ARE USER INPUTS, NOT NECESSARILY ACTIONS COMPLETED BY COMPUTER CALCULATIONS
 **Specific Functions
 
+
+--------------------------------------------------------------------------------------------
+
+Main Goals  
+
+1. Create ShipFactory()
+2. Create GameboardFactory()
+3. Create PlayerFactory()
+4. Create Vs CPU Mode ***Minimum needed for application
+    a. Make a way for CPU to randomly place ships on board
+    b. Make a way for player to place ships on board
+5. Create VS Player Mode
+    a. Create a handoff mode
+6. Create a random online mode
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------
+
+ACTION - Home Page Loaded
+    - R0 - ****ACTION**** Choose Game Mode
+    
+
+ACTION - Choose Game Mode
+    - R0 - ****ACTION**** Choose CPU
+    - R0 - ****ACTION**** Choose Versus
+
+
 ACTION - Choose CPU
     - R0 - Player1 created (User)
         -R1 - Player1 Gameboard Created
@@ -100,12 +131,15 @@ ACTION - Player1 Presses Tile on Player2 Grid
                         - R5 - Check if Player2 Gameboard has all ships sunk
                             - R6 - Player2 Gameboard has no ships
                                 - R7 - Game Over, Player1 Wins
+                                    - R8 - All ship data and Gameboard data is wiped
+                                        - R9 - Prompt For Either Play Again or Go Back to Home Page
+                                            - R10 - ****ACTION**** Choose CPU
+                                            - R10 - ****ACTION**** Home Page Loaded
+                                        
                             - R6 - Player2 Gameboard has some ships left
-                                - R0 - Player2 (CPU) Barred From Pressing Tile on Player1 Grid
-                                - R0 - Check if Tile Contains Ship
+                                - R7 - ****ACTION**** Player1 Presses Tile on Player2 Grid
                 - R3 - Selected Ship is not Sunk
-                    - R0 - Player2 (CPU) Barred From Pressing Tile on Player1 Grid
-                    - R0 - Check if Tile Contains Ship
+                    - R4 - ****ACTION**** Player1 Presses Tile on Player2 Grid
 
 
 ACTION - Player2 (CPU) Presses Tile on Player1 Grid 
@@ -121,19 +155,27 @@ ACTION - Player2 (CPU) Presses Tile on Player1 Grid
                         - R5 - Player1 Ship Counted as Sunk in Player1 Gameboard
                             - R6 - Check if Player1 Gameboard has all ships sunk
                                 - R7 - Player1 Gameboard has no ships
-                                    - Game Over, Player2 Wins
+                                    - R8 - Game Over, Player2 Wins
+                                        - R9 - All ship data and Gameboard data is wiped
+                                            - R10 - Prompt For Either Play Again or Go Back to Home Page
+                                                - R11 - ****ACTION**** Choose CPU
+                                                - R11 - ****ACTION**** Home Page Loaded
+
                                 - R7 - Player1 Gameboard has some ships left
-                                    - R0 - Player1 (Player) Barred From Pressing Tile on Player2 Grid
-                                    - R0 - Random Tile is Selected By CPU
+                                    - R8 - ****ACTION**** Player2 (CPU) Presses Tile on Player1 Grid
                     - R4 - Selected Ship is Not Sunk
-                        - R0 - Player1 (Player) Barred From Pressing Tile on Player2 Grid
-                        - R0 - Random Tile is Selected By CPU
+                        - R5 - ****ACTION**** Player2 (CPU) Presses Tile on Player1 Grid
 
 
 ACTION - Choose VERSUS
     -
 
+--------------------------------------------------------------------------
 
 
+Battleship Project --> Project Planning #7 --> 3 Main Objects
+- Ship
+- Gameboard
+- Player
 
 
