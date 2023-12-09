@@ -18,16 +18,41 @@ let ship = function(length, x_coordinate, y_coordinate, ship_name) {
 
 let tile = function(x_coordinate, y_coordinate) {
 
-    return {x_coordinate, y_coordinate}
+
+    let ship = 5;
+
+
+    return {x_coordinate, y_coordinate, ship}
 }
 
 
 
 let gameboard = function(x_size, y_size) {
 
-    let tile_amount = x_size * y_size;
+    
 
-    return {x_size, y_size, tile_amount};
+    let tiles = [];
+    
+    for (let y = 0; y < y_size; y++) {
+
+        for (let x = 0; x < x_size; x++) {
+
+            let boardtile = tile(x,y)
+
+            tiles.push(boardtile);
+        }
+
+    }
+    
+
+    return {x_size, y_size, tiles};
+
+}
+
+
+let player = function() {
+
+    return 1 ;
 
 }
 

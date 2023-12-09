@@ -83,6 +83,14 @@ test('Tile has x_coordinate and y_coordinate', () => {
 
 })
 
+test('Tile can be connected to a ship', () => {
+
+    let newtile = tile(5,5);
+    expect(newtile.ship).toBeDefined();
+
+
+})
+
 
 
 
@@ -108,12 +116,33 @@ test('Make sure Gameboard x_size and y_size are stored', () => {
 
 })
 
-test('Make sure Gameboard of x_size and y_size generates (x_size * y_size)# of tiles', () => {
+
+test('Gameboard iteravely creates tiles with the specified coordinates based on x_size and y_size', () => {
+
 
     const grid = gameboard(5,5);
-    expect(grid.tile_amount).toBe(25);
+    expect(grid.tiles.length).toBe(25);
+
+    const grid2 = gameboard(8,8);
+    expect(grid2.tiles.length).toBe(64);
+
+})
+
+test.skip('Gameboard has placedships object', () => {
+
+
+    //const
 
 
 })
 
-test('Gameboard iteravely creates tiles with the specified coordinates based on ')
+test.skip('Check that player exists (is defined)', () => {
+
+    const user = player();
+    expect(user).toBeDefined();
+
+
+
+})
+
+
