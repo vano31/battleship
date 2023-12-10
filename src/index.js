@@ -1,3 +1,4 @@
+import "./style.css";
 const { ship, tile, gameboard } = require("./ship");
 
 let board1 = gameboard(10,10);
@@ -245,7 +246,7 @@ let shiphover = function(e) {
         for (let x = 0; x < hoveredtiles.length; x++) {
 
             hoveredtiles[x].classList.add('hovered');
-            //console.log(hoveredtiles);
+            console.log(hoveredtiles);
             //console.log('hello');
 
         }
