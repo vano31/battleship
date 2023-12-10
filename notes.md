@@ -199,6 +199,8 @@ let tileDOMs = document.querySelectorAll(".tileDOM") //might be a problem becaus
 //import tiles array of objects from a different file, connected to gameboard object on that same file so that we can get use this information- we need to make it so that eact JS tileDOM object will have an x_coordinate key-value pair
 //and y_coordinate key-value pair
 
+
+///////////////////////////////////////////////////////////////////// This part of code not needed since DOM objects can also have attributes
 let importedTiles = gameboard.tiles;
 
 for (let x = 0; x < importedTiles.length; x++) {
@@ -217,6 +219,7 @@ for (let x = 0; x < importedTiles.length; x++) {
 }
 
 gameboardDOM.tiles = tileDOMs;
+/////////////////////////////////////////////////////////////////////
 
 shipclasses.forEach(shipclass) {
 
@@ -316,8 +319,11 @@ shiphover(e) {
     }
 
 
-
 }
+
+
+
+
 
 shiphoverout(e) {
 

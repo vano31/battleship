@@ -128,6 +128,44 @@ test('Gameboard iteravely creates tiles with the specified coordinates based on 
 
 })
 
+
+test('Make sure gameboard has access to placedShips object as a key', () => {
+
+
+    const grid = gameboard(5,5);
+    expect(grid.placedShips).toBeDefined();
+
+})
+
+
+test('gameboard.placedShips has access to currentlyPlacing and currentShipOrientation', () => {
+
+
+    const grid = gameboard(6,6);
+    expect(grid.placedShips.currentlyPlacing).toBeDefined();
+    expect(grid.placedShips.currentShipOrientation).toBeDefined();
+
+
+})
+
+
+test('Make sure gameboard.placedShip has access to the correct count of each ship type and the amount that the gameboard should hold', () => {
+
+
+
+    const grid = gameboard(8,8);
+    expect(grid.placedShips['2length']).toBe(3);
+    expect(grid.placedShips['3length']).toBe(3);
+    expect(grid.placedShips['4length']).toBe(2);
+    expect(grid.placedShips['5length']).toBe(2)
+
+
+})
+
+
+
+
+
 test.skip('Gameboard has placedships object', () => {
 
 

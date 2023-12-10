@@ -43,9 +43,21 @@ let gameboard = function(x_size, y_size) {
         }
 
     }
+
+    let placedShips = {
+
+        currentlyPlacing: '',
+        currentShipOrientation: 'right',
+        '2length': 3,
+        '3length': 3,
+        '4length': 2,
+        '5length': 2
+
+
+    };
     
 
-    return {x_size, y_size, tiles};
+    return {x_size, y_size, tiles, placedShips};
 
 }
 

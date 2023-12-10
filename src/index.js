@@ -1,4 +1,7 @@
-const { tile } = require("./ship");
+const { ship, tile, gameboard } = require("./ship");
+
+let board1 = gameboard(10,10);
+
 
 console.log('It works');
 
@@ -33,6 +36,10 @@ let gameboardDOM = document.createElement('div');
 gameboardDOM.classList.add('gameboardDOM');
 gameboardDOM.setAttribute('style', 'box-sizing: border-box; outline: 1px solid black; width: 500px; height: 500px; display: flex; flex-wrap: wrap; align-items: flex-start');
 gameboardDOM.tiles = [];
+
+let length;
+
+
 
 let tileDOMfactory = function(xamount,yamount, somecontainer) {
 
@@ -74,9 +81,185 @@ let tileDOMfactory = function(xamount,yamount, somecontainer) {
 
 tileDOMfactory(10,10, gameboardDOM);
 
+////Testing
+
+/*
+
+console.log(board1.placedShips.currentlyPlacing);
+console.log(shipclasses)
+
+shipclasses.forEach((shipclass) => {
+
+    shipclass.addEventListener('click', function() {
+
+        console.log(shipclass.id)
+
+    })
+
+
+})
+
+*/
+
+////
+
+
 
 document.body.appendChild(gameboardDOM);
+
+
 let tileDOMs = document.querySelectorAll('.tileDOM');
+
+shipclasses.forEach((shipclass) => {
+
+    shipclass.addEventListener('click', function shipclassListener() {
+        board1.placedShips.currentlyPlacing = shipclass.id
+
+
+        if (shipclass.id === `2length`) {
+
+            length = 2
+
+        }
+            
+        if (shipclass.id === `3length`) {
+
+            length = 3
+
+        }
+            
+        if (shipclass.id === `4length`) {
+
+            length = 4
+
+        }
+            
+        if (shipclass.id === `5length`) {
+
+            length = 5
+
+        }
+        
+
+            
+
+        if (board1.placedShips[shipclass.id] > 0) {
+
+            
+
+            tileDOMs.forEach((tileDOM) => {
+
+            
+                tileDOM.addEventListener('mouseover', shiphover)
+                //tileDOM.addEventListener('mouseout', shiphoverout(e))
+                //tileDOM.addEventListener('rightClick', shipflip(e))
+                //tileDOM.addEventListener('click', shipplace(e))
+
+            })
+            
+            
+
+
+        }   else {
+
+            return
+
+        }
+    
+        
+
+    })
+
+})
+
+
+
+let shiphover = function(e) {
+
+    let tileDOMinner;
+    console.log(length)
+
+    if (e.target.classList.contains('tileDOM')) {
+
+
+        tileDOMinner = e.target;
+        
+
+    }   else {
+
+
+        return
+
+    }   
+
+    //-> include section for hoverout so that hover and unused do not stay if simply being hovered over (DONE)
+
+    
+
+    let hoverorientation = board1.placedShips.currentShipOrientation;
+    let counter = 0;
+    let shipcoordinates = [];
+    let hoveredtiles = [];
+
+
+    switch(hoverorientation) {
+        case 'right':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] + counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'left':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] - counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'up':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] + counter}`);
+                counter++
+            }
+        case 'down':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] - counter}`);
+                counter++
+            }
+
+    }
+
+    //console.log(length)
+
+    for (let x = 0; x < gameboardDOM.tiles.length; x++) {
+
+        if (shipcoordinates.includes(gameboardDOM.tiles[x].id)) {
+
+            hoveredtiles.push(gameboardDOM.tiles[x]);
+
+        }
+
+    }
+
+
+    
+    const hasUnusedinList = (example) => example.classList.contains('unused');
+    if (hoveredtiles.every(hasUnusedinList) && hoveredtiles.length === length) {
+        for (let x = 0; x < hoveredtiles.length; x++) {
+
+            hoveredtiles[x].classList.add('hovered');
+            //console.log(hoveredtiles);
+            //console.log('hello');
+
+        }
+
+        console.log(hoveredtiles)
+
+    }   else {
+
+        return //not enough for the hovered section
+    }
+    
+
+
+}
 
 
 
@@ -122,3 +305,38 @@ let GameboardDOMFactory = function() {
 
 
 
+////////////////////////////////Determining ship length
+
+/*
+let length;
+
+let shipLengthDecider = function() {
+
+    if (shipclass.id === `2length`) {
+
+        length = 2
+
+    }
+        
+    if (shipclass.id === `3length`) {
+
+        length = 3
+
+    }
+        
+    if (shipclass.id === `4length`) {
+
+        length = 4
+
+    }
+        
+    if (shipclass.id === `5length`) {
+
+        length = 5
+
+    }
+
+}
+*/
+
+////////////////////////////////
