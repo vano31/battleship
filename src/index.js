@@ -152,7 +152,7 @@ shipclasses.forEach((shipclass) => {
 
             
                 tileDOM.addEventListener('mouseover', shiphover)
-                //tileDOM.addEventListener('mouseout', shiphoverout(e))
+                tileDOM.addEventListener('mouseout', shiphoverout)
                 //tileDOM.addEventListener('rightClick', shipflip(e))
                 //tileDOM.addEventListener('click', shipplace(e))
 
@@ -173,6 +173,8 @@ shipclasses.forEach((shipclass) => {
 
 })
 
+
+//////////////shiphover function 
 
 
 let shiphover = function(e) {
@@ -262,14 +264,100 @@ let shiphover = function(e) {
 
 }
 
+/////////////////shiphoverout function 
+
+let shiphoverout = function(e) {
+
+    let tileDOMinner;
+    console.log(length)
+
+    if (e.target.classList.contains('tileDOM')) {
+
+
+        tileDOMinner = e.target;
+        
+
+    }   else {
+
+
+        return
+
+    }   
+
+    //-> include section for hoverout so that hover and unused do not stay if simply being hovered over (DONE)
+
+    
+
+    let hoverorientation = board1.placedShips.currentShipOrientation;
+    let counter = 0;
+    let shipcoordinates = [];
+    let hoveredtiles = [];
+
+
+    switch(hoverorientation) {
+        case 'right':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] + counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'left':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] - counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'up':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] + counter}`);
+                counter++
+            }
+        case 'down':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] - counter}`);
+                counter++
+            }
+
+    }
+
+    //console.log(length)
+
+    for (let x = 0; x < gameboardDOM.tiles.length; x++) {
+
+        if (shipcoordinates.includes(gameboardDOM.tiles[x].id)) {
+
+            hoveredtiles.push(gameboardDOM.tiles[x]);
+
+        }
+
+    }
+
+
+    
+    const hasUnusedinList = (example) => example.classList.contains('unused');
+    if (hoveredtiles.every(hasUnusedinList) && hoveredtiles.length === length) {
+        for (let x = 0; x < hoveredtiles.length; x++) {
+
+            hoveredtiles[x].classList.remove('hovered');
+            console.log(hoveredtiles);
+            //console.log('hello');
+
+        }
+
+        console.log(hoveredtiles)
+
+    }   else {
+
+        return //not enough for the hovered section
+    }
+    
+
+}
 
 
 
 
 
 
-
-
+//////////////////////////////////////
 
 //console.log(tileDOMs)
 
