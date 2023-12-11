@@ -346,8 +346,8 @@ shiphoverout(e) {
 
 
 shipflip(e) {
-    -> include a place that redos shiphover for that tile in order to account for the flipped orientation (DONE)
-    -> include section that removes existing .hovered from old tileDOMs that are no longer highlighted (DONE)
+    //-> include a place that redos shiphover for that tile in order to account for the flipped orientation (DONE)
+    //-> include section that removes existing .hovered from old tileDOMs that are no longer highlighted (DONE)
 
     if (e.target.classList.contains('.tileDOM')) {
 

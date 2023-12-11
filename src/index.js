@@ -153,7 +153,7 @@ shipclasses.forEach((shipclass) => {
             
                 tileDOM.addEventListener('mouseover', shiphover)
                 tileDOM.addEventListener('mouseout', shiphoverout)
-                //tileDOM.addEventListener('rightClick', shipflip(e))
+                tileDOM.addEventListener('contextmenu', shipflip)
                 //tileDOM.addEventListener('click', shipplace(e))
 
             })
@@ -180,7 +180,10 @@ shipclasses.forEach((shipclass) => {
 let shiphover = function(e) {
 
     let tileDOMinner;
-    console.log(length)
+    //console.log(length)
+
+    console.log(e);
+    console.log(e.target)
 
     if (e.target.classList.contains('tileDOM')) {
 
@@ -248,12 +251,12 @@ let shiphover = function(e) {
         for (let x = 0; x < hoveredtiles.length; x++) {
 
             hoveredtiles[x].classList.add('hovered');
-            console.log(hoveredtiles);
+            //console.log(hoveredtiles);
             //console.log('hello');
 
         }
 
-        console.log(hoveredtiles)
+        //console.log(hoveredtiles)
 
     }   else {
 
@@ -269,7 +272,7 @@ let shiphover = function(e) {
 let shiphoverout = function(e) {
 
     let tileDOMinner;
-    console.log(length)
+    //console.log(length)
 
     if (e.target.classList.contains('tileDOM')) {
 
@@ -337,12 +340,12 @@ let shiphoverout = function(e) {
         for (let x = 0; x < hoveredtiles.length; x++) {
 
             hoveredtiles[x].classList.remove('hovered');
-            console.log(hoveredtiles);
+            //console.log(hoveredtiles);
             //console.log('hello');
 
         }
 
-        console.log(hoveredtiles)
+        //console.log(hoveredtiles)
 
     }   else {
 
@@ -351,6 +354,117 @@ let shiphoverout = function(e) {
     
 
 }
+
+////////////////shipflip function
+
+let shipflip = function(e) {
+    //-> include a place that redos shiphover for that tile in order to account for the flipped orientation (DONE)
+    //-> include section that removes existing .hovered from old tileDOMs that are no longer highlighted (DONE)
+
+    e.preventDefault();
+    
+    tileDOMs.forEach((tileDOM) => {
+
+        tileDOM.classList.remove("hovered")
+
+    });
+
+    e.target.classList.add("hovered")
+
+    let tileDOMinner;
+
+    if (e.target.classList.contains('tileDOM')) {
+
+        tileDOMinner = e.target;
+
+    }   else {
+
+        return
+    } 
+
+    //console.log(tileDOMinner);
+
+    let direction = ['down', 'left', 'up', 'right'];
+    //console.log(board1.placedShips.currentShipOrientation);
+
+    
+    let olddirection = direction.indexOf(`${board1.placedShips.currentShipOrientation}`);
+    //console.log(olddirection)
+
+
+    
+    let counter = 0;
+    let oldcoordinates = [];
+
+    switch(olddirection) {
+        case 'right':
+            while (counter < length) {
+                oldcoordinates.push(`${tileDOMinner["x-coordinate"] + counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+
+            //console.log(oldcoordinates);
+
+
+        case 'down':
+
+            while (counter < length) {
+                oldcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] - counter}`);
+                counter++
+            }
+
+
+        case 'left':
+
+            while (counter < length) {
+                oldcoordinates.push(`${tileDOMinner["x-coordinate"] - counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+
+        case 'up':
+
+        while (counter < length) {
+                oldcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] + counter}`);
+                counter++
+            }
+
+    }
+
+    //console.log(direction[0]);
+    //console.log(oldcoordinates);
+    
+
+    
+    if (olddirection === 3) {
+
+        board1.placedShips.currentShipOrientation = direction[0];
+
+        oldcoordinates.forEach(coordinate => {
+            coordinate.classList.remove('hovered')
+            console.log(oldcoordinates);
+        })
+
+        //shiphover();
+
+    }   else {
+
+        board1.placedShips.currentShipOrientation = direction[olddirection + 1];
+
+        oldcoordinates.forEach(coordinate => {
+            coordinate.classList.remove('hovered')
+        })
+
+        //shiphover();
+
+    }
+    
+
+    
+
+}
+
+
+
 
 
 
