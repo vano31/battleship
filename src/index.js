@@ -520,12 +520,10 @@ let shipplaced = function(e) {
         }
     }
 
-    //tileDOMtotile(clickedtiles);
+    tileDOMtotile(clickedtiles);
 
 
-    //console.log(clickedtiles)
-
-    
+       
     const hasUnusedInList = (example) => example.classList.contains('unused');
     if (clickedtiles.every(hasUnusedInList)) {
 
@@ -542,7 +540,7 @@ let shipplaced = function(e) {
 
     //gameboardPlacedShipSubtractor();
 
-    gameboard.placedShip.currentlyPlacing = 'none';
+    board1.placedShips.currentlyPlacing = 'none';
 
     //gameboardPlacedShipChecker();
     
@@ -550,6 +548,32 @@ let shipplaced = function(e) {
 
 }
 
+
+///////////////////////tileDOMtotile() function
+
+let tileDOMtotile = function(arrayofDOMelements) { //included in shipplaced() function
+
+    let arrayofnonDOMtiles = [];
+
+    for (let x = 0; x < board1.tiles.length; x++) {
+
+        for (let y = 0; y < arrayofDOMelements.length; y++) {
+
+            if (arrayofDOMelements[y].id === `${board1.tiles[x].x_coordinate}, ${board1.tiles[x].y_coordinate}`) {
+                arrayofnonDOMtiles.push(board1.tiles[x]);
+            }
+
+        }
+
+    }
+
+    arrayofnonDOMtiles.forEach((tile) => {
+        tile.ship = board1.placedShips.currentlyPlacing;
+    })
+
+    console.log(board1.tiles);
+
+}
 
 
 

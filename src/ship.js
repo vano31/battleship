@@ -19,7 +19,7 @@ let ship = function(length, x_coordinate, y_coordinate, ship_name) {
 let tile = function(x_coordinate, y_coordinate) {
 
 
-    let ship = 5;
+    let ship = 'none';
 
 
     return {x_coordinate, y_coordinate, ship}
