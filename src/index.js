@@ -154,7 +154,7 @@ shipclasses.forEach((shipclass) => {
                 tileDOM.addEventListener('mouseover', shiphover)
                 tileDOM.addEventListener('mouseout', shiphoverout)
                 tileDOM.addEventListener('contextmenu', shipflip)
-                //tileDOM.addEventListener('click', shipplace(e))
+                tileDOM.addEventListener('click', shipplaced)
 
             })
             
@@ -460,6 +460,93 @@ let shipflip = function(e) {
     
 
     
+
+}
+
+
+
+//////////shipplaced function
+
+let shipplaced = function(e) {
+
+    let tileDOMinner;
+
+    if (e.target.classList.contains('tileDOM')) {
+
+        tileDOMinner = e.target;
+
+    }   else {
+
+        return
+    } 
+
+    //-> include place that allows the gameboard.placedShips's number for the specific ship that was placed to be reduced by 1 each time a ship is placed (DONE)
+    //-> make sure gameboard.placedShips.currentlyPlacing is reset back to "non" after a ship is placed (DONE)
+
+    let clickorientation = board1.placedShips.currentShipOrientation;
+    let counter = 0;
+    let shipcoordinates = [];
+    let clickedtiles = [];
+    switch(clickorientation) {
+        case 'right':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] + counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'left':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"] - counter}, ${tileDOMinner["y-coordinate"]}`);
+                counter++
+            }
+        case 'up':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] + counter}`);
+                counter++
+            }
+        case 'down':
+            while (counter < length) {
+                shipcoordinates.push(`${tileDOMinner["x-coordinate"]}, ${tileDOMinner["y-coordinate"] - counter}`);
+                counter++
+            }
+
+    }
+
+    for (let x = 0; x < gameboardDOM.tiles.length; x++) {
+
+        if (shipcoordinates.includes(gameboardDOM.tiles[x].id)) {
+
+            clickedtiles.push(gameboardDOM.tiles[x])
+
+        }
+    }
+
+    //tileDOMtotile(clickedtiles);
+
+
+    //console.log(clickedtiles)
+
+    
+    const hasUnusedInList = (example) => example.classList.contains('unused');
+    if (clickedtiles.every(hasUnusedInList)) {
+
+        for (let x = 0; x < clickedtiles.length; x++) {
+            clickedtiles[x].classList.add('used');
+            clickedtiles[x].classList.remove('unused');
+            clickedtiles[x].classList.remove('hovered');
+        }
+
+    }   else {
+
+        return //not enough for the clicked section
+    }
+
+    //gameboardPlacedShipSubtractor();
+
+    gameboard.placedShip.currentlyPlacing = 'none';
+
+    //gameboardPlacedShipChecker();
+    
+
 
 }
 
