@@ -2,6 +2,7 @@ import "./style.css";
 const { ship, tile, gameboard } = require("./ship");
 
 let board1 = gameboard(10,10);
+console.log(board1)
 
 
 console.log('It works');
@@ -116,6 +117,8 @@ shipclasses.forEach((shipclass) => {
     shipclass.addEventListener('click', function shipclassListener() {
         board1.placedShips.currentlyPlacing = shipclass.id
 
+        //console.log(board1)
+
 
         if (shipclass.id === `2length`) {
 
@@ -182,8 +185,8 @@ let shiphover = function(e) {
     let tileDOMinner;
     //console.log(length)
 
-    console.log(e);
-    console.log(e.target)
+    //console.log(e);
+    //console.log(e.target)
 
     if (e.target.classList.contains('tileDOM')) {
 
@@ -441,7 +444,7 @@ let shipflip = function(e) {
 
         oldcoordinates.forEach(coordinate => {
             coordinate.classList.remove('hovered')
-            console.log(oldcoordinates);
+            //console.log(oldcoordinates);
         })
 
         //shiphover();
@@ -538,9 +541,13 @@ let shipplaced = function(e) {
         return //not enough for the clicked section
     }
 
-    //gameboardPlacedShipSubtractor();
+    
 
-    board1.placedShips.currentlyPlacing = 'none';
+    gameboardPlacedShipSubtractor();
+
+    //board1.placedShips.currentlyPlacing = 'none';
+
+    
 
     //gameboardPlacedShipChecker();
     
@@ -571,9 +578,62 @@ let tileDOMtotile = function(arrayofDOMelements) { //included in shipplaced() fu
         tile.ship = board1.placedShips.currentlyPlacing;
     })
 
-    console.log(board1.tiles);
+    //console.log(board1.tiles);
 
 }
+
+
+
+
+//////////////////////gameboardPlacedShipSubtractor() function
+
+let gameboardPlacedShipSubtractor = function() {
+
+    //takes the shipname and subtracts gameboard.placedship of that ship by 1
+
+    //gameboard.placedShips[gameboard.placedShips.currentlyPlacing] = gameboard.placedShips[gameboard.placedShips.currentlyPlacing] - 1;
+
+    //let currentShip = `${board1.placedShips.currentlyPlacing}`;
+    let currentShip = board1.placedShips.currentlyPlacing;
+    //console.log(currentShip);
+    //console.log(board1.placedShips);
+
+    //console.log(board1.placedShips[currentShip])
+
+    //board1.placedShips[currentShip]--;
+
+    //board1.placedShips[currentShip] = (board1.placedShips.currentlyPlacing[currentShip]) - 1;
+
+    //console.log(board1.placedShips);
+
+
+
+
+    
+    for (const key in board1.placedShips) {
+
+        if (board1.placedShips.hasOwnProperty(key)) {
+
+            if (key === currentShip) {
+
+                board1.placedShips[key] = board1.placedShips[key] - 1;
+    
+            }
+
+        }
+
+
+    }
+    
+    
+
+    //console.log(board1);
+
+
+}
+
+
+
 
 
 
