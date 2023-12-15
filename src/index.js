@@ -650,6 +650,8 @@ let gameboardDOMfreezer = function() {   //in gameboardPlacedShipChecker() funct
         tileDOM.removeEventListener('rightClick', shipflip)
         tileDOM.removeEventListener('click', shipplaced)
 
+        tileDOM.classList.remove('hovered');
+
 
     })
 
