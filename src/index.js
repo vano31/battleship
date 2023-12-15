@@ -42,14 +42,12 @@ gameboardDOM.tiles = [];
 let length;
 
 
-
 let tileDOMfactory = function(xamount,yamount, somecontainer) {
 
     for (let y = yamount - 1; y >= 0; y--) {
 
 
         for (let x = 0; x < xamount; x++) {
-
 
             let tileDOM = document.createElement('div');
             tileDOM.classList.add('tileDOM', 'unused');
@@ -62,7 +60,6 @@ let tileDOMfactory = function(xamount,yamount, somecontainer) {
             somecontainer.tiles.push(tileDOM);
 
         }
-
 
     }
 
@@ -103,16 +100,14 @@ shipclasses.forEach((shipclass) => {
 
 */
 
-////
-
-
 
 document.body.appendChild(gameboardDOM);
-
 
 let tileDOMs = document.querySelectorAll('.tileDOM');
 
 shipclasses.forEach((shipclass) => {
+
+    
 
     shipclass.addEventListener('click', function shipclassListener() {
         board1.placedShips.currentlyPlacing = shipclass.id
@@ -177,8 +172,10 @@ shipclasses.forEach((shipclass) => {
 })
 
 
-//////////////shiphover function 
 
+
+
+//////////////shiphover function 
 
 let shiphover = function(e) {
 
@@ -524,9 +521,7 @@ let shipplaced = function(e) {
     }
 
     tileDOMtotile(clickedtiles);
-
-
-       
+ 
     const hasUnusedInList = (example) => example.classList.contains('unused');
     if (clickedtiles.every(hasUnusedInList)) {
 
@@ -541,15 +536,11 @@ let shipplaced = function(e) {
         return //not enough for the clicked section
     }
 
-    
-
     gameboardPlacedShipSubtractor();
 
     //board1.placedShips.currentlyPlacing = 'none';
 
-    
-
-    //gameboardPlacedShipChecker();
+    gameboardPlacedShipChecker();
     
 
 
@@ -605,10 +596,6 @@ let gameboardPlacedShipSubtractor = function() {
     //board1.placedShips[currentShip] = (board1.placedShips.currentlyPlacing[currentShip]) - 1;
 
     //console.log(board1.placedShips);
-
-
-
-
     
     for (const key in board1.placedShips) {
 
@@ -625,12 +612,79 @@ let gameboardPlacedShipSubtractor = function() {
 
     }
     
-    
-
     //console.log(board1);
 
 
 }
+
+
+//////////////gameboardPlacedShipChecker() function
+
+let gameboardPlacedShipChecker = function() {
+
+    //checks if all the gameboard.placedShips are 0
+
+    if (board1.placedShips["2length"] === 0 && board1.placedShips["3length"] === 0 && board1.placedShips["4length"] === 0 && board1.placedShips["5length"] === 0) {
+
+        gameboardDOMfreezer();
+
+        console.log("Yo Yo Yo Yo Yo")
+
+    }
+
+
+}
+
+
+
+////////////////gameboardDOMfreezer() function
+
+let gameboardDOMfreezer = function() {   //in gameboardPlacedShipChecker() function
+
+    //if all the gameboard.placedships are 0, (gotten from gameboardPlacedShipChecker) remove event listener from all the tileDOMs
+
+    tileDOMs.forEach(tileDOM => {
+
+        tileDOM.removeEventListener('mouseover', shiphover)
+        tileDOM.removeEventListener('mouseout', shiphoverout)
+        tileDOM.removeEventListener('rightClick', shipflip)
+        tileDOM.removeEventListener('click', shipplaced)
+
+
+    })
+
+    console.log('yahoo yahoo')
+
+    /*
+    shipclasses.forEach(shipclass => {
+
+        shipclass.removeEventListener('click', shipclassListener)
+
+    })
+    */
+    
+    /*
+    tileDOMs.forEach(tileDOM) {
+
+        tileDOM.removeEventListener('mouseover', shiphover(e))
+        tileDOM.removeEventListener('mouseout', shiphoverout(e))
+        tileDOM.removeEventListener('rightClick', shipflip(e))
+        tileDOM.removeEventListener('click', shipplace(e))
+
+
+    }
+
+    shipclasses.forEach(shipclass) => {
+        shipclass.removeEventListener('click', shipclassListener);
+    }
+    */
+
+}
+
+
+
+
+
 
 
 
@@ -713,4 +767,3 @@ let shipLengthDecider = function() {
 }
 */
 
-////////////////////////////////
