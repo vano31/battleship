@@ -1,4 +1,4 @@
-const {ship, gameboard, tile} = require('./ship.js');
+const {ship, gameboard, tile, shipAmountGenerator, randomShipGenerator} = require('./ship.js');
 
 
 //Ship Tests/////////////////////////////////////
@@ -163,8 +163,156 @@ test('Make sure gameboard.placedShip has access to the correct count of each shi
 })
 
 
+////////////shipAmountGenerator Tests
 
 
+
+test('Check that shipAmountGenerator exists', () => {
+
+    expect(shipAmountGenerator).toBeDefined()
+
+
+})
+
+
+test('Check that shipAmountGenerator can produce the correct shipAmount based on the parameters inputted', () => {
+
+    const newnumbers = shipAmountGenerator(2, 3, 4, 5);
+
+    expect(newnumbers["2length"]).toBe(2);
+    expect(newnumbers["3length"]).toBe(3);
+    expect(newnumbers["4length"]).toBe(4);
+    expect(newnumbers["5length"]).toBe(5);
+
+
+})
+
+
+
+
+/////////////// randomShipGenerator Test
+
+
+test('Make Sure Random Ship Generator Exists', () => {
+
+
+    expect(randomShipGenerator).toBeDefined();
+
+
+})
+
+test('Make sure randomShipGenerator produces random amount of ships', () => {
+
+    /*let newnumbers = shipAmountGenerator(2,3,4,5);
+    let newboard = 
+    */
+
+    const newnumbers = jest.fn();
+    newnumbers.mockReturnValue({
+
+        "2length": 2,
+        "3length": 3,
+        "4length": 4,
+        "5length": 5
+
+    })
+
+    const newtile = jest.fn()
+    newtile.mockReturnValue({
+        ship : "none"
+    })
+
+    /*const newboard = jest.fn(
+
+    );
+    */
+    
+    /*
+    newboard.mockReturnValue({
+        //tiles : new Array(100).fill(newtile)
+        
+    })
+    */
+
+    const newboard = {
+
+        tiles: new Array(100).fill(newtile)
+        //return tiles
+
+    }
+    
+
+    randomShipGenerator(newboard, newnumbers);
+
+    let twolengthchecker = jest.fn();
+    twolengthchecker.mockReturnValue("two");
+
+
+    let threelengthchecker = jest.fn();
+    threelengthchecker.mockReturnValue("three");
+
+
+    let fourlengthchecker = jest.fn();
+    fourlengthchecker.mockReturnValue("four");
+
+
+    let fivelengthchecker = jest.fn();
+    fivelengthchecker.mockReturnValue("five");
+
+    for (let x = 0; x < newboard.tiles.length; x++) {
+
+        if (newboard.tiles[x].ship === "2length") {
+
+            twolengthchecker();
+
+        }   else if (newboard.tiles[x].ship === "3length") {
+
+            threelengthchecker();
+
+        }   else if (newboard.tiles[x].ship === "4length") {
+
+            fourlengthchecker();
+
+        }   else if (newboard.tiles[x].ship === "5length") {
+
+            fivelengthchecker();
+
+        }   else {
+
+            return
+
+        }
+
+
+    }
+
+
+    expect(twolengthchecker).toHaveBeenCalledTimes(2);
+    expect(threelengthchecker).toHaveBeenCalledTimes(3);
+    expect(fourlengthchecker).toHaveBeenCalledTimes(4);
+    expect(fivelengthchecker).toHaveBeenCalledTimes(5);
+
+
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//////////////////////////
 
 test.skip('Gameboard has placedships object', () => {
 
